@@ -1,7 +1,7 @@
 
-// stdafx.cpp : åªåŒ…æ‹¬æ ‡å‡†åŒ…å«æ–‡ä»¶çš„æºæ–‡ä»¶
-// Teleprompter.pch å°†ä½œä¸ºé¢„ç¼–è¯‘å¤´
-// stdafx.obj å°†åŒ…å«é¢„ç¼–è¯‘ç±»å‹ä¿¡æ¯
+// stdafx.cpp : Ö»°üÀ¨±ê×¼°üº¬ÎÄ¼şµÄÔ´ÎÄ¼ş
+// Teleprompter.pch ½«×÷ÎªÔ¤±àÒëÍ·
+// stdafx.obj ½«°üº¬Ô¤±àÒëÀàĞÍĞÅÏ¢
 
 #include "stdafx.h"
 #include <io.h>
@@ -138,15 +138,15 @@ xstring loadFile(const xstring& path)
 bool IsTextUTF8(const char* str, LONG64 length)
 {
 	int i;
-	LONG64 nBytes = 0;//UFT8å¯ç”¨1-6ä¸ªå­—èŠ‚ç¼–ç ,ASCIIç”¨ä¸€ä¸ªå­—èŠ‚
+	LONG64 nBytes = 0;//UFT8¿ÉÓÃ1-6¸ö×Ö½Ú±àÂë,ASCIIÓÃÒ»¸ö×Ö½Ú
 	unsigned char chr;
-	bool bAllAscii = true; //å¦‚æœå…¨éƒ¨éƒ½æ˜¯ASCII, è¯´æ˜ä¸æ˜¯UTF-8
+	bool bAllAscii = true; //Èç¹ûÈ«²¿¶¼ÊÇASCII, ËµÃ÷²»ÊÇUTF-8
 	for (i = 0; i < length; i++)
 	{
 		chr = *(str + i);
-		if ((chr & 0x80) != 0) // åˆ¤æ–­æ˜¯å¦ASCIIç¼–ç ,å¦‚æœä¸æ˜¯,è¯´æ˜æœ‰å¯èƒ½æ˜¯UTF-8,ASCIIç”¨7ä½ç¼–ç ,ä½†ç”¨ä¸€ä¸ªå­—èŠ‚å­˜,æœ€é«˜ä½æ ‡è®°ä¸º0,o0xxxxxxx
+		if ((chr & 0x80) != 0) // ÅĞ¶ÏÊÇ·ñASCII±àÂë,Èç¹û²»ÊÇ,ËµÃ÷ÓĞ¿ÉÄÜÊÇUTF-8,ASCIIÓÃ7Î»±àÂë,µ«ÓÃÒ»¸ö×Ö½Ú´æ,×î¸ßÎ»±ê¼ÇÎª0,o0xxxxxxx
 			bAllAscii = false;
-		if (nBytes == 0) //å¦‚æœä¸æ˜¯ASCIIç ,åº”è¯¥æ˜¯å¤šå­—èŠ‚ç¬¦,è®¡ç®—å­—èŠ‚æ•°
+		if (nBytes == 0) //Èç¹û²»ÊÇASCIIÂë,Ó¦¸ÃÊÇ¶à×Ö½Ú·û,¼ÆËã×Ö½ÚÊı
 		{
 			if (chr >= 0x80)
 			{
@@ -167,7 +167,7 @@ bool IsTextUTF8(const char* str, LONG64 length)
 				nBytes--;
 			}
 		}
-		else //å¤šå­—èŠ‚ç¬¦çš„éé¦–å­—èŠ‚,åº”ä¸º 10xxxxxx
+		else //¶à×Ö½Ú·ûµÄ·ÇÊ××Ö½Ú,Ó¦Îª 10xxxxxx
 		{
 			if ((chr & 0xC0) != 0x80)
 			{
@@ -176,11 +176,11 @@ bool IsTextUTF8(const char* str, LONG64 length)
 			nBytes--;
 		}
 	}
-	if (nBytes > 0) //è¿è¿”è§„åˆ™
+	if (nBytes > 0) //Î¥·µ¹æÔò
 	{
 		return false;
 	}
-	if (bAllAscii) //å¦‚æœå…¨éƒ¨éƒ½æ˜¯ASCII, è¯´æ˜ä¸æ˜¯UTF-8
+	if (bAllAscii) //Èç¹ûÈ«²¿¶¼ÊÇASCII, ËµÃ÷²»ÊÇUTF-8
 	{
 		return false;
 	}
